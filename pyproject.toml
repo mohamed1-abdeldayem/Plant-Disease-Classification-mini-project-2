@@ -7,7 +7,9 @@ authors = [
     { name = "Mohamed Abdeldayem", email = "mabdeldayem052@gmail.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "pre-commit>=4.6.2",
+]
 
 [project.scripts]
 plant-disease-mlops = "plant_disease_mlops:main"

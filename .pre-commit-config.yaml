@@ -10,13 +10,6 @@ repos:
 
       - id: ruff-format
 
-  # =========================
-  # Pyright - Type Checking
-  # =========================
-  - repo: https://github.com/RobertCraigie/pyright-python
-    rev: v1.1.350
-    hooks:
-      - id: pyright
 
   # =========================
   # Detect Secrets

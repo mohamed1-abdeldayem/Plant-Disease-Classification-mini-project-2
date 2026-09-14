@@ -1465,6 +1465,7 @@ source = { editable = "." }
 dependencies = [
     { name = "dvc" },
     { name = "pre-commit" },
+    { name = "pydantic-settings" },
 ]
 
 [package.dev-dependencies]
@@ -1477,6 +1478,7 @@ dev = [
 requires-dist = [
     { name = "dvc", specifier = ">=3.67.1" },
     { name = "pre-commit", specifier = ">=4.6.2" },
+    { name = "pydantic-settings", specifier = ">=2.15.0" },
 ]
 
 [package.metadata.requires-dev]

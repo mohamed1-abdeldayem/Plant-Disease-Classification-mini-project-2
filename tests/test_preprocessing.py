@@ -1,11 +1,11 @@
 import pytest
-from src.plant_disease_mlops import PreProcessor
+from src.plant_disease_mlops import Preprocessor
 import tensorflow as tf
 
 
 @pytest.fixture
 def preprocessor(image_size=(224, 224), batch_size=32, validation_split=0.2):
-    return PreProcessor(
+    return Preprocessor(
         image_size=(224, 224),
         batch_size=32,
         validation_split=0.2,
@@ -68,7 +68,7 @@ def test_preprocess_image_shape(tmp_path, preprocessor):
 
 
 def test_train_generator(sample_dataset):
-    preprocessor = PreProcessor(
+    preprocessor = Preprocessor(
         batch_size=4,
     )
 
@@ -80,7 +80,7 @@ def test_train_generator(sample_dataset):
 
 
 def test_validation_generator(sample_dataset):
-    preprocessor = PreProcessor(
+    preprocessor = Preprocessor(
         batch_size=4,
     )
 

@@ -1,0 +1,21 @@
+stages:
+
+  train:
+    cmd: uv run python training/train.py
+    deps:
+      - data/raw
+      - training/train.py
+      - src/plant_disease_mlops/preprocessing.py
+      - src/plant_disease_mlops/config.py
+      - training/wandb_utils.py
+      - training/sweep_config.py
+    outs:
+      - models/plant_disease_model.keras
+
+  export_onnx:
+    cmd: uv run python training/export_to_onnx.py
+    deps:
+      - training/export_to_onnx.py
+      - models/plant_disease_model.keras
+    outs:
+      - models/plant_disease_model.onnx

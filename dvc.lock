@@ -1,0 +1,51 @@
+schema: '2.0'
+stages:
+  train:
+    cmd: uv run python training/train.py
+    deps:
+    - path: data/raw
+      hash: md5
+      md5: b54dcb62b1ee38c54251106a75999167.dir
+      size: 91207890
+      nfiles: 5453
+    - path: src/plant_disease_mlops/config.py
+      hash: md5
+      md5: 668637f1ce02b1fb26c9e5e37bbcd1c7
+      size: 542
+    - path: src/plant_disease_mlops/preprocessing.py
+      hash: md5
+      md5: fa17431b3c18b2af26e3f6f495464594
+      size: 2157
+    - path: training/sweep_config.py
+      hash: md5
+      md5: d32625df253851f906e05df0f9c5198e
+      size: 528
+    - path: training/train.py
+      hash: md5
+      md5: 96c1453e89e83ef8e9afea8c9e719c61
+      size: 7030
+    - path: training/wandb_utils.py
+      hash: md5
+      md5: d6b6befe127390b8afdc79be46062422
+      size: 193
+    outs:
+    - path: models/plant_disease_model.keras
+      hash: md5
+      md5: b38e4e61741e76da9276724cad1baff5
+      size: 13570466
+  export_onnx:
+    cmd: uv run python training/export_to_onnx.py
+    deps:
+    - path: models/plant_disease_model.keras
+      hash: md5
+      md5: b38e4e61741e76da9276724cad1baff5
+      size: 13570466
+    - path: training/export_to_onnx.py
+      hash: md5
+      md5: a11c882eab9586e75eb090b748c095b9
+      size: 1099
+    outs:
+    - path: models/plant_disease_model.onnx
+      hash: md5
+      md5: 2582f8b4cd27b396a249903ea137921a
+      size: 10238697

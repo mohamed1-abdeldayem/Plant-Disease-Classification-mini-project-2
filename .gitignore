@@ -7,3 +7,6 @@ __pycache__/
 notebooks/tuner_results
 notebooks/best_model.h5
 notebooks/best_model_hyper.keras
+/wandb
+/mlruns
+/mabdeldayem052-qena-university-

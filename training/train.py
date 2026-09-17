@@ -7,8 +7,8 @@ from plant_disease_mlops import settings
 import tensorflow as tf
 import wandb
 from wandb.integration.keras import WandbMetricsLogger
-from wandb_utils import setup_wandb
-from sweep_config import SWEEP_CONFIG
+from .wandb_utils import setup_wandb
+from .sweep_config import SWEEP_CONFIG
 
 import mlflow
 

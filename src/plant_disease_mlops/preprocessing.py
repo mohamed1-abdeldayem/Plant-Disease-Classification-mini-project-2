@@ -4,6 +4,7 @@ import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from .config import settings
 import io
+import numpy as np
 
 
 class PlantDiseasePreprocessor:
@@ -75,4 +76,4 @@ class PlantDiseasePreprocessor:
 
         image = tf.expand_dims(image, axis=0)
 
-        return image
+        return image.numpy().astype(np.float32)

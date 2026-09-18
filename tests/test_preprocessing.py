@@ -5,12 +5,8 @@ from src.plant_disease_mlops import Preprocessor
 
 
 @pytest.fixture
-def preprocessor(image_size=(224, 224), batch_size=32, validation_split=0.2):
-    return Preprocessor(
-        image_size=(224, 224),
-        batch_size=32,
-        validation_split=0.2,
-    )
+def preprocessor():
+    return Preprocessor()
 
 
 @pytest.fixture
@@ -41,12 +37,6 @@ def sample_dataset(tmp_path):
     return tmp_path
 
 
-def test_preprocessor_initialization(preprocessor):
-    assert preprocessor.image_size == (224, 224)
-    assert preprocessor.batch_size == 32
-    assert preprocessor.validation_split == 0.2
-
-
 def test_preprocess_image_shape(tmp_path, preprocessor):
     image = tf.random.uniform(
         shape=(300, 300, 3),
@@ -61,29 +51,27 @@ def test_preprocess_image_shape(tmp_path, preprocessor):
         image,
     )
 
-    result = preprocessor.preprocess_image(image_path)
+    image_bytes = image_path.read_bytes()
+
+    result = preprocessor.preprocess_image(image_bytes)
 
     assert result.shape == (1, 224, 224, 3)
 
 
-def test_train_generator(sample_dataset):
-    preprocessor = Preprocessor(
-        batch_size=4,
-    )
+def test_train_generator(sample_dataset, preprocessor):
+    preprocessor.data_dir = sample_dataset
 
-    generator = preprocessor.get_train_generator(sample_dataset)
+    generator = preprocessor.get_train_generator(batch_size=4)
 
     assert generator.batch_size == 4
     assert generator.target_size == (224, 224)
     assert generator.class_mode == "categorical"
 
 
-def test_validation_generator(sample_dataset):
-    preprocessor = Preprocessor(
-        batch_size=4,
-    )
+def test_validation_generator(sample_dataset, preprocessor):
+    preprocessor.data_dir = sample_dataset
 
-    generator = preprocessor.get_validation_generator(sample_dataset)
+    generator = preprocessor.get_validation_generator(batch_size=4)
 
     assert generator.batch_size == 4
     assert generator.target_size == (224, 224)

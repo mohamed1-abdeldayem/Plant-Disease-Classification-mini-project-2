@@ -10,3 +10,5 @@ notebooks/best_model_hyper.keras
 /wandb
 /mlruns
 /mabdeldayem052-qena-university-
+client_secrets.json
+credentials.json

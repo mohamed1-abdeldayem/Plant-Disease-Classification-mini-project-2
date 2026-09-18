@@ -1,0 +1,113 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - "feature/**"
+
+  pull_request:
+    branches:
+      - main
+
+
+jobs:
+
+  # =========================
+  # Lint
+  # =========================
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "latest"
+
+      - name: Set up Python
+        run: uv python install 3.13
+
+      - name: Install dependencies
+        run: uv sync --locked
+
+      - name: Run Ruff check
+        run: uv run ruff check .
+
+      - name: Check formatting
+        run: uv run ruff format --check .
+
+
+  # =========================
+  # Tests
+  # =========================
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "latest"
+
+      - name: Set up Python
+        run: uv python install 3.13
+
+      - name: Install dependencies
+        run: uv sync --locked
+
+      - name: Run non-training tests
+        run: |
+          uv run pytest \
+            tests/test_preprocessing.py \
+            tests/test_inference.py \
+            tests/test_api.py \
+            -v
+
+
+  # =========================
+  # Docker Compose
+  # =========================
+  docker-compose:
+    name: Docker Compose
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create CI environment file
+        run: |
+          cat > .env << EOF
+          RAW_DATA_DIR_PATH=data/raw
+          MODEL_KERAS_PATH=models/plant_disease_model.keras
+          MODEL_ONNX_PATH=models/plant_disease_model.onnx
+          WANDB_KEY=ci
+          WANDB_PROJECT_NAME=ci
+          WANDB_ENTITY=ci
+          EOF
+
+      - name: Build Docker Compose services
+        run: docker compose build
+
+      - name: Start Docker Compose services
+        run: docker compose up -d
+
+      - name: Check running containers
+        run: docker compose ps
+
+      - name: Show container logs
+        if: failure()
+        run: docker compose logs
+
+      - name: Stop Docker Compose services
+        if: always()
+        run: docker compose down

@@ -21,8 +21,10 @@ def test_preprocess_image(inference, tmp_path):
     image = Image.new("RGB", (300, 300))
     image.save(image_path)
 
-    result = inference.preprocess_image(image_path)
+    with open(image_path, "rb") as f:
+        image_bytes = f.read()
 
+    result = inference.preprocess_image(image_bytes)
     assert result.shape == (1, 224, 224, 3)
 
 

@@ -1,6 +1,7 @@
 import pytest
-from src.plant_disease_mlops import Preprocessor
 import tensorflow as tf
+
+from src.plant_disease_mlops import Preprocessor
 
 
 @pytest.fixture
@@ -59,8 +60,6 @@ def test_preprocess_image_shape(tmp_path, preprocessor):
         image_path,
         image,
     )
-
-    preprocessor = preprocessor
 
     result = preprocessor.preprocess_image(image_path)
 

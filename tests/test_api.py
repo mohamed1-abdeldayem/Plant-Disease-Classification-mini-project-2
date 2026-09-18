@@ -1,8 +1,7 @@
+import pytest
 from fastapi.testclient import TestClient
 
 from plant_disease_mlops import app
-
-import pytest
 
 
 @pytest.fixture

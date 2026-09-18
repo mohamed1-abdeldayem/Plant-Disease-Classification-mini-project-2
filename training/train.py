@@ -1,16 +1,17 @@
+from pathlib import Path
+
+import mlflow
+import tensorflow as tf
 from tensorflow.keras.callbacks import (
     EarlyStopping,
 )
-from plant_disease_mlops import Preprocessor
-from pathlib import Path
-from plant_disease_mlops import settings
-import tensorflow as tf
-import wandb
 from wandb.integration.keras import WandbMetricsLogger
-from .wandb_utils import setup_wandb
-from .sweep_config import SWEEP_CONFIG
 
-import mlflow
+import wandb
+from plant_disease_mlops import Preprocessor, settings
+
+from .sweep_config import SWEEP_CONFIG
+from .wandb_utils import setup_wandb
 
 
 class Trainer:
@@ -201,9 +202,7 @@ class Trainer:
         ]
 
         if not approved_versions:
-            raise ValueError(
-                f"No model version found with " f"tag '{tag_key}={tag_value}'"
-            )
+            raise ValueError(f"No model version found with tag '{tag_key}={tag_value}'")
 
         approved_version = max(
             approved_versions,

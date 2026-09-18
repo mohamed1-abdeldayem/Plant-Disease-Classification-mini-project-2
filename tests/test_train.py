@@ -1,6 +1,8 @@
-from training import Trainer
 from unittest.mock import Mock
+
 import pytest
+
+from training import Trainer
 
 
 @pytest.fixture

@@ -1,7 +1,9 @@
-from fastapi import FastAPI, Request, File, UploadFile
-from .inference import Inference
 from contextlib import asynccontextmanager
+
+from fastapi import FastAPI, File, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+
+from .inference import Inference
 
 
 @asynccontextmanager

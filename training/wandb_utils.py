@@ -1,5 +1,4 @@
 import wandb
-
 from plant_disease_mlops import settings
 
 

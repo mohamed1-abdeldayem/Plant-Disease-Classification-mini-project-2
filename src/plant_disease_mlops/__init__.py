@@ -1,6 +1,6 @@
 from .config import settings as settings
-from .preprocessing import PlantDiseasePreprocessor as Preprocessor
 from .inference import Inference as Inference
 from .main import app as app
+from .preprocessing import PlantDiseasePreprocessor as Preprocessor
 
-__all__ = ["Preprocessor", "settings", "Inference", "app"]
+__all__ = ["Inference", "Preprocessor", "app", "settings"]

@@ -1,7 +1,8 @@
-from plant_disease_mlops import Inference
-import pytest
 import numpy as np
+import pytest
 from PIL import Image
+
+from plant_disease_mlops import Inference
 
 
 @pytest.fixture

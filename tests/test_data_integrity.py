@@ -1,6 +1,8 @@
-from src.plant_disease_mlops import settings
-import pytest
 from pathlib import Path
+
+import pytest
+
+from src.plant_disease_mlops import settings
 
 
 @pytest.fixture

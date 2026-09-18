@@ -1,8 +1,10 @@
+from pathlib import Path
+
+import numpy as np
+import onnxruntime as ort
+
 from .config import settings
 from .preprocessing import PlantDiseasePreprocessor
-import onnxruntime as ort
-from pathlib import Path
-import numpy as np
 
 
 class Inference:

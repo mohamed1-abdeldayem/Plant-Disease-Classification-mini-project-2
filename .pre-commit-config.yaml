@@ -9,19 +9,3 @@ repos:
         args: [--fix]
 
       - id: ruff-format
-
-  # =========================
-  # Pyright - Type Checking
-  # =========================
-  - repo: https://github.com/RobertCraigie/pyright-python
-    rev: v1.1.350
-    hooks:
-      - id: pyright
-
-  # =========================
-  # Detect Secrets
-  # =========================
-  - repo: https://github.com/Yelp/detect-secrets
-    rev: v1.5.0
-    hooks:
-      - id: detect-secrets

@@ -1,0 +1,17 @@
+/.git
+/.github
+/.venv
+/__pycache__
+/.pytest_cache
+/.mypy_cache
+/.pyright
+/.ruff_cache
+/.dvc
+/data
+/notebooks
+/tests
+/mlruns
+/wandb
+/*.ipynb
+/.env
+/mabdeldayem052-qena-university-

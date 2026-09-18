@@ -8,18 +8,43 @@ authors = [
 ]
 requires-python = ">=3.12"
 dependencies = [
+    "dvc>=3.67.1",
+    "dvc-gdrive>=3.0.1",
+    "fastapi>=0.141.1",
+    "httpx2>=2.13.0",
+    "ipykernel>=7.3.0",
+    "keras-tuner>=1.4.8",
+    "matplotlib>=3.11.2",
+    "mlflow>=3.16.1",
+    "numpy>=2.5.3",
+    "onnxruntime>=1.30.0",
+    "pillow>=12.3.0",
     "pre-commit>=4.6.2",
+    "pydantic>=2.13.5",
+    "pydantic-settings>=2.15.0",
+    "python-multipart>=0.0.32",
+    "scipy>=1.18.1",
+    "tensorboard>=2.21.0",
+    "tensorflow>=2.21.0",
+    "tf2onnx>=1.17.0",
+    "wandb>=0.30.0",
 ]
 
 [project.scripts]
 plant-disease-mlops = "plant_disease_mlops:main"
 
 [build-system]
-requires = ["uv_build>=0.12.6,<0.13.0"]
+requires = ["uv_build>=0.12.6,<0.13.0","hatchling"]
 build-backend = "uv_build"
 
 [dependency-groups]
 dev = [
+    "hatchling>=1.32.0",
     "pytest>=9.1.1",
     "pytest-cov>=7.1.0",
+    "pytest-mock>=3.15.1",
+    "ruff>=0.16.8",
 ]
+
+[tool.ruff.lint]
+ignore = ["B008"]

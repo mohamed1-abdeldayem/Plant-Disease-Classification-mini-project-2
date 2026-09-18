@@ -1,0 +1,87 @@
+name: Model Training
+
+on:
+  workflow_dispatch:
+
+jobs:
+  train:
+    name: Train Model
+    runs-on: ubuntu-latest
+
+    env:
+      RAW_DATA_DIR_PATH: data/raw
+      MODEL_KERAS_PATH: models/plant_disease_model.keras
+      MODEL_ONNX_PATH: models/plant_disease_model.onnx
+
+      WANDB_KEY: ${{ secrets.WANDB_KEY }}
+      WANDB_PROJECT_NAME: ${{ secrets.WANDB_PROJECT_NAME }}
+      WANDB_ENTITY: ${{ secrets.WANDB_ENTITY }}
+
+      DVC_GDRIVE_CLIENT_ID: ${{ secrets.DVC_GDRIVE_CLIENT_ID }}
+      DVC_GDRIVE_CLIENT_SECRET: ${{ secrets.DVC_GDRIVE_CLIENT_SECRET }}
+
+    steps:
+
+      # =========================
+      # Checkout
+      # =========================
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+
+      # =========================
+      # Install uv
+      # =========================
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "latest"
+
+
+      # =========================
+      # Python
+      # =========================
+      - name: Set up Python
+        run: uv python install 3.13
+
+
+      # =========================
+      # Dependencies
+      # =========================
+      - name: Install dependencies
+        run: uv sync --locked
+
+
+      # =========================
+      # Configure DVC
+      # =========================
+      - name: Configure DVC Google Drive
+        run: |
+          uv run dvc remote modify gdrive \
+            gdrive_client_id "$DVC_GDRIVE_CLIENT_ID" \
+            --local
+
+          uv run dvc remote modify gdrive \
+            gdrive_client_secret "$DVC_GDRIVE_CLIENT_SECRET" \
+            --local
+
+
+      # =========================
+      # Pull data and artifacts
+      # =========================
+      - name: Pull DVC data
+        run: uv run dvc pull
+
+
+      # =========================
+      # Reproduce pipeline
+      # =========================
+      - name: Reproduce DVC pipeline
+        run: uv run dvc repro
+
+
+      # =========================
+      # Push generated artifacts
+      # =========================
+      - name: Push DVC artifacts
+        run: uv run dvc push

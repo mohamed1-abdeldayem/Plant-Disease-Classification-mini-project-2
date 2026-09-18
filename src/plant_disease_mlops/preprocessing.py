@@ -3,6 +3,7 @@ from pathlib import Path
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from .config import settings
+import io
 
 
 class PlantDiseasePreprocessor:
@@ -59,10 +60,12 @@ class PlantDiseasePreprocessor:
         )
 
     def preprocess_image(
-        self, image_path: str | Path, image_size: tuple[int, int] = (224, 224)
+        self,
+        image_bytes: bytes,
+        image_size: tuple[int, int] = (224, 224),
     ) -> tf.Tensor:
         image = tf.keras.utils.load_img(
-            image_path,
+            io.BytesIO(image_bytes),
             target_size=image_size,
         )
 

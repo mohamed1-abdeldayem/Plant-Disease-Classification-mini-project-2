@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - feature/cd
+      - feature/terraform
       - main
 
 jobs:

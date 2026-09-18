@@ -159,6 +159,8 @@ class Trainer:
         return model, history
 
     def register_model(self, model, history, params):
+        mlflow.set_experiment("Plant Disease Classification")
+
         metrics = {
             "best_val_accuracy": max(history.history["val_accuracy"]),
             "best_val_loss": min(history.history["val_loss"]),

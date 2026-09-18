@@ -49,6 +49,14 @@ jobs:
     name: Tests
     runs-on: ubuntu-latest
 
+    env:
+      RAW_DATA_DIR_PATH: data/raw
+      MODEL_KERAS_PATH: models/plant_disease_model.keras
+      MODEL_ONNX_PATH: models/plant_disease_model.onnx
+      WANDB_KEY: ci
+      WANDB_PROJECT_NAME: ci
+      WANDB_ENTITY: ci
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -71,7 +79,6 @@ jobs:
             tests/test_inference.py \
             tests/test_api.py \
             -v
-
 
   # =========================
   # Docker Compose

@@ -36,10 +36,10 @@ jobs:
         run: uv sync --locked
 
       - name: Run Ruff check
-        run: uv run ruff check .
+        run: uv run ruff check src tests
 
       - name: Check formatting
-        run: uv run ruff format --check .
+        run: uv run ruff format --check src tests
 
 
   # =========================
